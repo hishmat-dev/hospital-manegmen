@@ -68,11 +68,11 @@ export const fetchSpecialties = createAsyncThunk("dashboard/fetchSpecialties", a
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve([
-        { id: 1, name: "Cardiology" },
-        { id: 2, name: "Neurology" },
-        { id: 3, name: "Orthopedics" },
-        { id: 4, name: "Pediatrics" },
-        { id: 5, name: "General Surgery" },
+        { id: 1, name: "Cardiology", doctors: 10, patients: 50 },
+        { id: 2, name: "Neurology", doctors: 8, patients: 40 },
+        { id: 3, name: "Orthopedics", doctors: 6, patients: 30 },
+        { id: 4, name: "Pediatrics", doctors: 12, patients: 60 },
+        { id: 5, name: "General Surgery", doctors: 9, patients: 45 },
       ])
     }, 700)
   })
@@ -83,9 +83,9 @@ export const fetchRecentPatients = createAsyncThunk("dashboard/fetchRecentPatien
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve([
-        { id: "P-001", name: "John Doe", admittedOn: "2025-05-20" },
-        { id: "P-002", name: "Jane Smith", admittedOn: "2025-05-19" },
-        { id: "P-003", name: "Robert Johnson", admittedOn: "2025-05-18" },
+        { id: "P-001", name: "John Doe", admittedOn: "2025-05-20", department: "Cardiology", status: "Admitted" },
+        { id: "P-002", name: "Jane Smith", admittedOn: "2025-05-19", department: "Neurology", status: "Outpatient" },
+        { id: "P-003", name: "Robert Johnson", admittedOn: "2025-05-18", department: "Orthopedics", status: "Discharged" },
       ])
     }, 700)
   })

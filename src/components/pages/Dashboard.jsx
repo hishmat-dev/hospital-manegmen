@@ -1,14 +1,18 @@
-import React from "react"
-import { useSelector } from "react-redux"
+import React, { useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
 import { Users, Calendar, Bed, UserCheck, AlertTriangle, Activity } from "lucide-react"
+import { fetchDashboardStats, fetchSpecialties, fetchRecentPatients } from "../../store/slices/dashboardSlice"
 
 export default function Dashboard() {
-  const { 
-  stats = {}, 
-  specialties = [], 
-  recentPatients = [] 
-} = useSelector((state) => state.dashboard || {})
+  const dispatch = useDispatch()
+  const { stats = {}, specialties = [], recentPatients = [] } = useSelector((state) => state.dashboard || {})
 
+  // Dispatch thunks when the component mounts
+  useEffect(() => {
+    dispatch(fetchDashboardStats())
+    dispatch(fetchSpecialties())
+    dispatch(fetchRecentPatients())
+  }, [dispatch])
 
   const StatCard = ({ icon, title, value, color }) => (
     <div className="bg-white rounded-lg shadow-md p-6 border-l-4" style={{ borderLeftColor: color }}>
