@@ -1,25 +1,13 @@
 import { Search, Download, Plus, X } from "lucide-react";
-import { listingConfig } from "../listing.config";
-
-
+import {listingConfig} from "../listing.config"
 export default function FilterBar({
-  filters = {}, // Default to empty object to prevent undefined errors
+  filters,
   onFilterChange,
   onExport,
   onAddNew,
-  departments = [],
-  statusOptions = [],
+  departments = [], 
+  statusOptions = [], 
 }) {
-
-  // Ensure filters is an object with default values
-  const safeFilters = {
-    search: "",
-    department: "",
-    status: "",
-    sortBy: "",
-    ...filters,
-  };
-
   return (
     <div className="bg-white rounded-lg shadow-md p-6 space-y-4">
       <div className="flex justify-between items-center">
@@ -27,21 +15,21 @@ export default function FilterBar({
         <div className="flex space-x-2">
           <button
             onClick={onExport}
-            className="bg-primary-color text-white px-4 py-2 rounded-lg  flex items-center space-x-2"
+            className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center space-x-2"
           >
             <Download size={16} />
             <span>Export</span>
           </button>
           <button
             onClick={onAddNew}
-            className="bg-primary-color text-white px-4 py-2 rounded-lg flex items-center space-x-2"
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2"
           >
             <Plus size={16} />
             <span>Add Patient</span>
           </button>
           <button
             onClick={() => onFilterChange("reset", null)}
-            className="bg-primary-color text-white px-4 py-2 rounded-lg  flex items-center space-x-2"
+            className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 flex items-center space-x-2"
           >
             <X size={16} />
             <span>Clear Filters</span>
@@ -51,21 +39,18 @@ export default function FilterBar({
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="relative">
-          <Search
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-            size={20}
-          />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
           <input
             type="text"
             placeholder="Search patients..."
-            value={safeFilters.search}
+            value={filters.search || ""} // Ensure controlled input
             onChange={(e) => onFilterChange("search", e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-primary-color focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
 
         <select
-          value={safeFilters.department}
+          value={filters.department || ""} // Ensure controlled input
           onChange={(e) => onFilterChange("department", e.target.value)}
           className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         >
@@ -78,7 +63,7 @@ export default function FilterBar({
         </select>
 
         <select
-          value={safeFilters.status}
+          value={filters.status || ""} // Ensure controlled input
           onChange={(e) => onFilterChange("status", e.target.value)}
           className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         >
@@ -91,11 +76,10 @@ export default function FilterBar({
         </select>
 
         <select
-          value={safeFilters.sortBy}
+          value={filters.sortBy || ""} // Ensure controlled input
           onChange={(e) => onFilterChange("sortBy", e.target.value)}
           className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         >
-          <option value="">Sort By</option>
           {listingConfig.sortOptions.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}

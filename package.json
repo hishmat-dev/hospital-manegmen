@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.0.1",
+    "antd": "^5.25.2",
     "clsx": "^2.1.1",
     "lucide-react": "^0.309.0",
     "react": "^18.3.1",

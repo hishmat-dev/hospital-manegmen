@@ -1,39 +1,34 @@
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedPatient, setLoading, setError } from "../../../../store/slices/patientSlice";
 
-
-import { useState, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { fetchPatientById } from "../../action/slice"
-
-export const useDetailHooks = (patientId) => {
-  const dispatch = useDispatch()
-  const { patients, loading, error } = useSelector((state) => state.patients)
-  const [patient, setPatient] = useState(null)
+export const useDetailHooks = (patientId="P-1001") => {
+  const dispatch = useDispatch();
+  const { patients, selectedPatient, loading, error } = useSelector((state) => state.patients);
+  const [patient, setPatient] = useState(null);
 
   useEffect(() => {
+    console.log("useDetailHooks - patientId:", patientId);
+    console.log("useDetailHooks - selectedPatient:", selectedPatient);
+    console.log("useDetailHooks - patients:", patients);
+    console.log("useDetailHooks - loading:", loading);
+    console.log("useDetailHooks - error:", error);
+
     if (patientId) {
-      // Try to find patient in existing state first
-      const existingPatient = patients.find((p) => p.id === patientId)
+      dispatch(setLoading(true));
+      console.log("patients",patients);
+      const existingPatient = patients.find((p) => p.id === patientId);
+      console.log("useDetailHooks - existingPatient:", existingPatient);
       if (existingPatient) {
-        setPatient(existingPatient)
+        setPatient(existingPatient);
+        dispatch(setSelectedPatient(existingPatient));
       } else {
-        // Fetch patient details if not in state
-        dispatch(fetchPatientById(patientId))
+        setPatient(null);
+        dispatch(setError(`Patient with ID ${patientId} not found`));
       }
+      dispatch(setLoading(false));
     }
-  }, [patientId, dispatch, patients])
+  }, [patientId, dispatch, patients]);
 
-  useEffect(() => {
-    if (patients.length > 0 && patientId) {
-      const foundPatient = patients.find((p) => p.id === patientId)
-      if (foundPatient) {
-        setPatient(foundPatient)
-      }
-    }
-  }, [patients, patientId])
-
-  return {
-    patient,
-    loading,
-    error,
-  }
-}
+  return { patient, loading, error };
+};

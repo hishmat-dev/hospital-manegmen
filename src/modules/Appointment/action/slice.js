@@ -19,7 +19,34 @@ export const deleteAppointment = createAsyncThunk("appointments/deleteAppointmen
 })
 
 const initialState = {
-  appointments: [],
+  appointments: [
+    {
+      id: "A-001",
+      patientId: "P-1001",
+      patientName: "John Smith",
+      doctorId: "D-001",
+      doctorName: "Dr. Sarah Wilson",
+      date: "2024-01-20",
+      time: "10:00 AM",
+      department: "Cardiology",
+      type: "Consultation",
+      status: "Scheduled",
+      notes: "Regular checkup",
+    },
+    {
+      id: "A-002",
+      patientId: "P-1002",
+      patientName: "Emma Johnson",
+      doctorId: "D-002",
+      doctorName: "Dr. Michael Brown",
+      date: "2024-01-20",
+      time: "2:00 PM",
+      department: "Orthopedics",
+      type: "Follow-up",
+      status: "Completed",
+      notes: "Post-surgery checkup",
+    },
+  ],
   selectedAppointment: null,
   loading: false,
   error: null,

@@ -2,115 +2,8 @@
 
 import { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
-import {
-  Home,
-  Users,
-  UserCheck,
-  Calendar,
-  Bed,
-  Stethoscope,
-  FlaskRoundIcon as Flask,
-  FileText,
-  AlertTriangle,
-  Activity,
-  ChevronDown,
-  ChevronRight,
-  Menu,
-  X,
-} from "lucide-react"
-
-const menu = [
-  {
-    title: "Dashboard",
-    icon: <Home size={18} />,
-    path: "/dashboard",
-  },
-  {
-    title: "Patient Management",
-    icon: <Users size={18} />,
-    children: [
-      { title: "Profile", path: "/patients/profile" },
-      { title: "Add Patient", path: "/patients/add" },
-      { title: "All Patients", path: "/patients/list" },
-      { title: "Patient Details", path: "/patients/details" },
-    ],
-  },
-  {
-    title: "Doctor Management",
-    icon: <UserCheck size={18} />,
-    children: [
-      { title: "Add Doctor", path: "/doctors/add" },
-      { title: "All Doctors", path: "/doctors/list" },
-      { title: "Doctor Profile", path: "/doctors/profile" },
-      { title: "Edit Profile", path: "/doctors/edit" },
-    ],
-  },
-  {
-    title: "Appointments",
-    icon: <Calendar size={18} />,
-    children: [
-      { title: "Book Appointment", path: "/appointments/book" },
-      { title: "Appointment List", path: "/appointments/list" },
-      { title: "Calendar View", path: "/appointments/calendar" },
-      { title: "Edit Appointment", path: "/appointments/edit" },
-    ],
-  },
-  {
-    title: "Bed Management",
-    icon: <Bed size={18} />,
-    children: [
-      { title: "Bed List", path: "/beds/list" },
-      { title: "Assign Bed", path: "/beds/assign" },
-      { title: "Transfer Bed", path: "/beds/transfer" },
-      { title: "Bed Availability", path: "/beds/availability" },
-    ],
-  },
-  {
-    title: "OPD",
-    icon: <Stethoscope size={18} />,
-    children: [
-      { title: "OPD Queue", path: "/opd/queue" },
-      { title: "OPD Consultation", path: "/opd/consultation" },
-      { title: "OPD Billing", path: "/opd/billing" },
-    ],
-  },
-  {
-    title: "Laboratory",
-    icon: <Flask size={18} />,
-    children: [
-      { title: "Add Lab Test", path: "/laboratory/add" },
-      { title: "Lab Reports", path: "/laboratory/reports" },
-      { title: "Patient Lab History", path: "/laboratory/history" },
-    ],
-  },
-  {
-    title: "Reports",
-    icon: <FileText size={18} />,
-    children: [
-      { title: "Medical Reports", path: "/reports/medical" },
-      { title: "Discharge Summary", path: "/reports/discharge" },
-      { title: "Prescription View", path: "/reports/prescription" },
-    ],
-  },
-  {
-    title: "Emergency",
-    icon: <AlertTriangle size={18} />,
-    children: [
-      { title: "Emergency Intake", path: "/emergency/intake" },
-      { title: "Triage Management", path: "/emergency/triage" },
-      { title: "Emergency Queue", path: "/emergency/queue" },
-    ],
-  },
-  {
-    title: "Nursing",
-    icon: <Activity size={18} />,
-    children: [
-      { title: "Vitals Tracking", path: "/nursing/vitals" },
-      { title: "Medication Schedule", path: "/nursing/medications" },
-      { title: "Shift Handover", path: "/nursing/shifts" },
-    ],
-  },
-]
+import { ChevronDown, ChevronRight, Menu, X } from "lucide-react"
+import { menu } from "./menu"
 
 export default function Sidebar() {
   const [openMenus, setOpenMenus] = useState({})
@@ -136,39 +29,41 @@ export default function Sidebar() {
     <>
       {/* Mobile Menu Button */}
       <button
-        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-blue-600 text-white rounded-lg"
+        className="md:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded shadow"
         onClick={() => setIsMobileOpen(!isMobileOpen)}
       >
         {isMobileOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
 
       {/* Sidebar */}
-      <div
+      <aside
         className={`
-        fixed inset-y-0 left-0 z-40 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out
-        md:translate-x-0 md:static md:inset-0
-        ${isMobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
-      `}
+          fixed z-50 top-0 left-0 h-full w-64 bg-white text-gray-900 p-4 overflow-y-auto scrollbar-hide transform transition-transform duration-300 ease-in-out
+          ${isMobileOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 md:static md:flex md:flex-col
+        `}
+        style={{
+          msOverflowStyle: 'none', /* Hide scrollbar for IE and Edge */
+          scrollbarWidth: 'none', /* Hide scrollbar for Firefox */
+        }}
       >
-      
         {/* Navigation */}
-        <nav className="mt-4 px-4 h-full overflow-y-auto pb-20">
+        <nav className="space-y-2">
           {menu.map((item, index) => (
-            <div key={index} className="mb-2">
+            <div key={index}>
               {item.children ? (
                 <div>
                   <button
                     onClick={() => toggleMenu(item.title)}
                     className={`
-                      w-full flex items-center justify-between px-4 py-3 text-left rounded-lg transition-colors duration-200
+                      w-full flex items-center justify-between p-2 text-left rounded transition-colors duration-200
                       ${
                         isParentActive(item.children)
-                          ? "bg-blue-50 text-blue-600 border-l-4 border-blue-600"
-                          : "text-gray-700 hover:bg-gray-100"
+                          ? "bg-gray-200 text-gray-900"
+                          : "text-gray-900 hover:bg-gray-200"
                       }
                     `}
                   >
-                    <div className="flex items-center space-x-3">
+                    <div className="flex items-center gap-3">
                       {item.icon}
                       <span className="font-medium">{item.title}</span>
                     </div>
@@ -176,18 +71,18 @@ export default function Sidebar() {
                   </button>
 
                   {openMenus[item.title] && (
-                    <div className="ml-6 mt-2 space-y-1">
+                    <div className="ml-6 mt-1 space-y-1 text-sm">
                       {item.children.map((child, childIndex) => (
                         <Link
                           key={childIndex}
                           to={child.path}
                           onClick={() => setIsMobileOpen(false)}
                           className={`
-                            block px-4 py-2 text-sm rounded-lg transition-colors duration-200
+                            block p-1 rounded transition-colors duration-200
                             ${
                               isActive(child.path)
-                                ? "bg-blue-100 text-blue-600 font-medium"
-                                : "text-gray-600 hover:bg-gray-50"
+                                ? "bg-gray-300 text-gray-900 font-medium"
+                                : "text-gray-900 hover:bg-gray-300"
                             }
                           `}
                         >
@@ -202,11 +97,11 @@ export default function Sidebar() {
                   to={item.path}
                   onClick={() => setIsMobileOpen(false)}
                   className={`
-                    flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors duration-200
+                    flex items-center gap-3 p-2 rounded transition-colors duration-200
                     ${
                       isActive(item.path)
-                        ? "bg-blue-50 text-blue-600 border-l-4 border-blue-600 font-medium"
-                        : "text-gray-700 hover:bg-gray-100"
+                        ? "bg-gray-200 text-gray-900 font-medium"
+                        : "text-gray-900 hover:bg-gray-200"
                     }
                   `}
                 >
@@ -217,11 +112,11 @@ export default function Sidebar() {
             </div>
           ))}
         </nav>
-      </div>
+      </aside>
 
       {/* Mobile Overlay */}
       {isMobileOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden" onClick={() => setIsMobileOpen(false)} />
+        <div className="fixed inset-0 bg-black bg-opacity-40 z-40 md:hidden" onClick={() => setIsMobileOpen(false)} />
       )}
     </>
   )

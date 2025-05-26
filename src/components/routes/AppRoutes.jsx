@@ -21,14 +21,15 @@ export default function AppRoutes() {
       <Route path="/patients/list" element={<PatientListing />} />
       <Route path="/patients/add" element={<PatientCreate />} />
       <Route path="/patients/create" element={<PatientCreate />} />
-      <Route path="/patients/create" element={<PatientCreate />} />
-      <Route path="/patients/detail/:id" element={<PatientDetail />} />
+      {/* <Route path="/patients/details" element={<PatientDetail />} /> */}
+      <Route path="/patients/details/:id" element={<PatientDetail />} />
       <Route path="/patients/update/:id" element={<PatientUpdate />} />
 
       {/* Doctor Management - Fully Modular */}
       {/* <Route path="/doctors/list" element={<DoctorListing />} /> */}
       <Route path="/doctors/add" element={<DoctorCreate />} />
       <Route path="/doctors/create" element={<DoctorCreate />} />
+      {/* <Route path="/doctors/list" element={<AllDoctor/>} /> */}
       <Route path="/doctors/detail/:id" element={<DoctorDetail />} />
       <Route path="/doctors/update/:id" element={<DoctorUpdate />} />
 
@@ -45,7 +46,7 @@ export default function AppRoutes() {
       {/* Laboratory - Modular */}
       <Route path="/laboratory/reports" element={<LaboratoryListing />} />
       <Route path="/laboratory/add" element={<LaboratoryCreate />} />
-      <Route path="/laboratory/create" element={<LaboratoryCreate />} />
+      <Route path="/laboratory/create/:id" element={<LaboratoryCreate />} />
 
       {/* Emergency - Modular */}
       <Route path="/emergency/queue" element={<EmergencyListing />} />

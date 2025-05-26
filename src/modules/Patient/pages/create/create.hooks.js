@@ -42,6 +42,7 @@ export const usePatientCreate = () => {
       setErrors(validationErrors)
 
       if (!isValid) return
+      // if(isValid) console.log("Form is valid, proceeding with submission...")
 
       setLoading(true)
       try {
@@ -52,7 +53,10 @@ export const usePatientCreate = () => {
           status: "Active",
         }
 
+        console.log("Patient created successfully:", patientData)
         await dispatch(createPatient(patientData)).unwrap()
+        setFormData(createConfig.initialFormData) // Reset form after successful submission
+        setErrors({}) // Clear errors after successful submission
         navigate("/patients/list")
       } catch (error) {
         console.error("Error creating patient:", error)

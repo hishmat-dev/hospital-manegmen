@@ -29,7 +29,32 @@ export const dischargeBed = createAsyncThunk("beds/dischargeBed", async (bedId) 
 })
 
 const initialState = {
-  beds: [],
+  beds: [
+    {
+      id: "B-101",
+      roomNumber: "101",
+      bedNumber: "A",
+      floor: "1st Floor",
+      department: "Cardiology",
+      type: "General",
+      status: "Occupied",
+      patientId: "P-1001",
+      patientName: "John Smith",
+      assignedDate: "2024-01-15",
+    },
+    {
+      id: "B-102",
+      roomNumber: "102",
+      bedNumber: "A",
+      floor: "1st Floor",
+      department: "Cardiology",
+      type: "General",
+      status: "Available",
+      patientId: null,
+      patientName: null,
+      assignedDate: null,
+    },
+  ],
   selectedBed: null,
   loading: false,
   error: null,

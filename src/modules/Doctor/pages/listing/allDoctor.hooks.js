@@ -4,7 +4,7 @@ import { useEffect, useCallback } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { fetchPatients, deletePatient, setSelectedPatient, setFilters } from "../../action/slice"
-import { listingHelper } from "./listing.helper"
+import { listingHelper } from "./allDoctor.helper"
 
 export const usePatientListing = () => {
   const dispatch = useDispatch()
@@ -35,7 +35,7 @@ export const usePatientListing = () => {
   const handleView = useCallback(
     (patient) => {
       dispatch(setSelectedPatient(patient))
-      navigate(`/patients/details/${patient.id}`)
+      navigate(`/patients/detail/${patient.id}`)
     },
     [dispatch, navigate],
   )

@@ -18,7 +18,7 @@ module.exports = {
         "waikawa-grey": "#526BB1",
         "vivid-cerise": "#DA1D81",
         "bright-sun": "#FED33C",
-        "main-color":"#526bb1",
+        "primary-color":"#526bb1",
     },
   },
   plugins: [require("tailwindcss-animate")],

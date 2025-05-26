@@ -1,9 +1,9 @@
 import FilterBar from "./components/FilterBar"
 import ListItem from "./components/ListItem"
-import { usePatientListing } from "./listing.hooks"
+import { usePatientListing } from "./allDoctor.hooks"
 import { listingConfig } from "./listing.config"
 
-export default function PatientList() {
+export default function AllDoctor() {
   const {
     patients,
     filters,
@@ -26,7 +26,6 @@ export default function PatientList() {
       </div>
     )
   }
-  console.log("Filters:", filters)
 
   return (
     <div className="space-y-6">
@@ -34,13 +33,14 @@ export default function PatientList() {
         <h1 className="text-2xl font-bold text-gray-900">Patient Management</h1>
       </div>
 
+      // PatientList.js
       <FilterBar
         filters={filters}
         onFilterChange={handleFilterChange}
         onExport={handleExport}
         onAddNew={handleAddNew}
         departments={listingConfig.departments}
-        statusOptions={listingConfig.statusOptions} 
+        statusOptions={listingConfig.statusOptions} // Updated prop name
       />
 
       <div className="bg-white rounded-lg shadow-md overflow-hidden">

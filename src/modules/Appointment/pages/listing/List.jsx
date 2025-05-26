@@ -20,6 +20,7 @@ export default function AppointmentList() {
     getTypeColor,
   } = useAppointmentListing()
 
+  console.log("Appoinments",appointments)
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">

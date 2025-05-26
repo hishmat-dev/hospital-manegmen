@@ -3,9 +3,15 @@ const API_BASE = "/api/patients"
 
 export const patientService = {
   // CRUD Operations
-  getAll: async (params = {}) => {
-    const queryString = new URLSearchParams(params).toString()
-    const response = await fetch(`${API_BASE}?${queryString}`)
+async getAll({ search, department, status, sortBy, page, limit }) {
+  const query = new URLSearchParams();
+  if (search) query.append("search", search);
+  if (department) query.append("department", department);
+  if (status) query.append("status", status);
+  if (sortBy) query.append("sortBy", sortBy);
+  query.append("page", page);
+  query.append("limit", limit);
+    const response = await fetch(`${API_BASE}?${query.toString()}`)
     return response.json()
   },
 
