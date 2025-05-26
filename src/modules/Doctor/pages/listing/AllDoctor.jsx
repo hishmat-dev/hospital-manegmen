@@ -1,11 +1,11 @@
 import FilterBar from "./components/FilterBar"
 import ListItem from "./components/ListItem"
-import { usePatientListing } from "./allDoctor.hooks"
-import { listingConfig } from "./listing.config"
+import { useDoctorListing } from "./allDoctor.hooks"
+import { listingConfig } from "./allDoctor.config"
 
 export default function AllDoctor() {
   const {
-    patients,
+    doctors,
     filters,
     loading,
     pagination,
@@ -16,8 +16,7 @@ export default function AllDoctor() {
     handleExport,
     handleAddNew,
     getStatusColor,
-
-  } = usePatientListing()
+  } = useDoctorListing()
 
   if (loading) {
     return (
@@ -30,17 +29,16 @@ export default function AllDoctor() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-900">Patient Management</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Doctor Management</h1>
       </div>
 
-      // PatientList.js
       <FilterBar
         filters={filters}
         onFilterChange={handleFilterChange}
         onExport={handleExport}
         onAddNew={handleAddNew}
         departments={listingConfig.departments}
-        statusOptions={listingConfig.statusOptions} // Updated prop name
+        statusOptions={listingConfig.statusOptions}
       />
 
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -49,20 +47,16 @@ export default function AllDoctor() {
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Patient
+                  Doctor
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Age</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Gender
+                  Specialty
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Department
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Contact
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Admission
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Status
@@ -73,10 +67,10 @@ export default function AllDoctor() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {patients.map((patient) => (
+              {doctors.map((doctor) => (
                 <ListItem
-                  key={patient.id}
-                  patient={patient}
+                  key={doctor.id}
+                  doctor={doctor}
                   onView={handleView}
                   onEdit={handleEdit}
                   onDelete={handleDelete}
@@ -88,14 +82,13 @@ export default function AllDoctor() {
         </div>
       </div>
 
-      {patients.length === 0 && (
+      {doctors.length === 0 && (
         <div className="text-center py-12">
-          <div className="text-gray-400 text-lg mb-2">No patients found</div>
+          <div className="text-gray-400 text-lg mb-2">No doctors found</div>
           <div className="text-gray-500">Try adjusting your search criteria</div>
         </div>
       )}
 
-      {/* Pagination */}
       {pagination.total > pagination.limit && (
         <div className="flex justify-between items-center bg-white px-6 py-3 rounded-lg shadow-md">
           <div className="text-sm text-gray-700">
@@ -103,11 +96,16 @@ export default function AllDoctor() {
             {Math.min(pagination.page * pagination.limit, pagination.total)} of {pagination.total} results
           </div>
           <div className="flex space-x-2">
-            <button disabled={pagination.page === 1} className="px-3 py-1 border rounded disabled:opacity-50">
+            <button
+              disabled={pagination.page === 1}
+              onClick={() => handleFilterChange("page", pagination.page - 1)}
+              className="px-3 py-1 border rounded disabled:opacity-50"
+            >
               Previous
             </button>
             <button
               disabled={pagination.page * pagination.limit >= pagination.total}
+              onClick={() => handleFilterChange("page", pagination.page + 1)}
               className="px-3 py-1 border rounded disabled:opacity-50"
             >
               Next

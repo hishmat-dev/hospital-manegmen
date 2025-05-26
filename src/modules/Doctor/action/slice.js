@@ -23,7 +23,48 @@ export const deleteDoctor = createAsyncThunk("doctors/deleteDoctor", async (id) 
 })
 
 const initialState = {
-  doctors: [],
+  doctors: [
+  {
+    id: 1,
+    name: "Dr. Ahmed Khan",
+    specialty: "Cardiology",
+    department: "Cardiology",
+    contact: "+92-300-1234567",
+    status: "Active",
+  },
+  {
+    id: 2,
+    name: "Dr. Fatima Siddiqui",
+    specialty: "Neurology",
+    department: "Neurology",
+    contact: "+92-321-9876543",
+    status: "Active",
+  },
+  {
+    id: 3,
+    name: "Dr. Muhammad Usman",
+    specialty: "Orthopedics",
+    department: "Orthopedics",
+    contact: "+92-333-4567890",
+    status: "Inactive",
+  },
+  {
+    id: 4,
+    name: "Dr. Ayesha Malik",
+    specialty: "Pediatrics",
+    department: "Pediatrics",
+    contact: "+92-302-5551234",
+    status: "Active",
+  },
+  {
+    id: 5,
+    name: "Dr. Hassan Raza",
+    specialty: "General Surgery",
+    department: "Surgery",
+    contact: "+92-301-6789012",
+    status: "Inactive",
+  },
+],
   selectedDoctor: null,
   loading: false,
   error: null,

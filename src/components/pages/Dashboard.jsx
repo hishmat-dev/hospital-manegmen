@@ -16,7 +16,7 @@ export default function Dashboard() {
   }, [dispatch]);
 
   const StatCard = ({ icon, title, value, color }) => (
-    <div className="bg-white rounded-lg shadow-md p-6 border-l-4" style={{ borderLeftColor: color }}>
+    <div className="bg-white rounded-lg shadow-md p-4 border-l-4" style={{ borderLeftColor: color }}>
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm font-medium text-gray-600">{title}</p>

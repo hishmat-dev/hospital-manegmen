@@ -4,7 +4,7 @@ import Dashboard from "../pages/Dashboard"
 // Import modular components
 import { PatientCreate, PatientListing, PatientDetail, PatientUpdate } from "../../modules/Patient"
 // import { DoctorCreate, DoctorListing, DoctorDetail, DoctorUpdate } from "../../modules/Doctor"
-import { DoctorCreate, DoctorDetail, DoctorUpdate } from "../../modules/Doctor"
+import { DoctorCreate, DoctorDetail, DoctorUpdate, AllDoctor } from "../../modules/Doctor"
 import { AppointmentCreate, AppointmentListing } from "../../modules/Appointment"
 import { BedCreate, BedListing } from "../../modules/Bed"
 import { LaboratoryCreate, LaboratoryListing } from "../../modules/Laboratory"
@@ -29,7 +29,7 @@ export default function AppRoutes() {
       {/* <Route path="/doctors/list" element={<DoctorListing />} /> */}
       <Route path="/doctors/add" element={<DoctorCreate />} />
       <Route path="/doctors/create" element={<DoctorCreate />} />
-      {/* <Route path="/doctors/list" element={<AllDoctor/>} /> */}
+      <Route path="/doctors/list" element={<AllDoctor/>} />
       <Route path="/doctors/detail/:id" element={<DoctorDetail />} />
       <Route path="/doctors/update/:id" element={<DoctorUpdate />} />
 

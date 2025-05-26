@@ -1,17 +1,18 @@
 import { Search, Download, Plus, X } from "lucide-react";
-import {listingConfig} from "../listing.config"
+import { listingConfig } from "../allDoctor.config";
+
 export default function FilterBar({
   filters,
   onFilterChange,
   onExport,
   onAddNew,
-  departments = [], 
-  statusOptions = [], 
+  departments = listingConfig.departments || [], // Fallback to empty array
+  statusOptions = listingConfig.statusOptions || [], // Fallback to empty array
 }) {
   return (
     <div className="bg-white rounded-lg shadow-md p-6 space-y-4">
       <div className="flex justify-between items-center">
-        <h2 className="text-lg font-semibold text-gray-900">Patient Filters</h2>
+        <h2 className="text-lg font-semibold text-gray-900">Doctor Filters</h2>
         <div className="flex space-x-2">
           <button
             onClick={onExport}
@@ -25,7 +26,7 @@ export default function FilterBar({
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center space-x-2"
           >
             <Plus size={16} />
-            <span>Add Patient</span>
+            <span>Add Doctor</span>
           </button>
           <button
             onClick={() => onFilterChange("reset", null)}
@@ -42,7 +43,7 @@ export default function FilterBar({
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
           <input
             type="text"
-            placeholder="Search patients..."
+            placeholder="Search doctors..."
             value={filters.search || ""} // Ensure controlled input
             onChange={(e) => onFilterChange("search", e.target.value)}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -56,8 +57,8 @@ export default function FilterBar({
         >
           <option value="">All Departments</option>
           {departments.map((dept) => (
-            <option key={dept} value={dept}>
-              {dept}
+            <option key={dept.value} value={dept.value}>
+              {dept.label}
             </option>
           ))}
         </select>
@@ -69,8 +70,8 @@ export default function FilterBar({
         >
           <option value="">All Statuses</option>
           {statusOptions.map((status) => (
-            <option key={status} value={status}>
-              {status}
+            <option key={status.value} value={status.value}>
+              {status.label}
             </option>
           ))}
         </select>
@@ -80,7 +81,8 @@ export default function FilterBar({
           onChange={(e) => onFilterChange("sortBy", e.target.value)}
           className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         >
-          {listingConfig.sortOptions.map((option) => (
+          <option value="">Sort By</option>
+          {(listingConfig.sortOptions || []).map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>

@@ -1,19 +1,17 @@
-
-
 import { useEffect, useCallback } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { fetchPatients, deletePatient, setSelectedPatient, setFilters } from "../../action/slice"
+import { fetchDoctors, deleteDoctor, setSelectedDoctor, setFilters } from "../../action/slice"
 import { listingHelper } from "./allDoctor.helper"
 
-export const usePatientListing = () => {
+export const useDoctorListing = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { patients, loading, filters, pagination } = useSelector((state) => state.patients)
+  const { doctors, loading, filters, pagination } = useSelector((state) => state.doctors)
 
   useEffect(() => {
-    dispatch(fetchPatients({ ...filters, ...pagination }))
+    dispatch(fetchDoctors({ ...filters, ...pagination }))
   }, [dispatch, filters, pagination])
 
   const handleFilterChange = useCallback(
@@ -22,51 +20,53 @@ export const usePatientListing = () => {
     },
     [dispatch],
   )
+
   const getStatusColor = useCallback((status) => {
     switch (status) {
-      case "Admitted":
+      case "Active":
         return "bg-blue-100 text-blue-800";
-      case "Discharged":
+      case "Inactive":
         return "bg-green-100 text-green-800";
       default:
         return "bg-gray-100 text-gray-800";
     }
-  }, []);
+  }, [])
+
   const handleView = useCallback(
-    (patient) => {
-      dispatch(setSelectedPatient(patient))
-      navigate(`/patients/detail/${patient.id}`)
+    (doctor) => {
+      dispatch(setSelectedDoctor(doctor))
+      navigate(`/doctors/detail/${doctor.id}`)
     },
     [dispatch, navigate],
   )
 
   const handleEdit = useCallback(
-    (patient) => {
-      dispatch(setSelectedPatient(patient))
-      navigate(`/patients/update/${patient.id}`)
+    (doctor) => {
+      dispatch(setSelectedDoctor(doctor))
+      navigate(`/doctors/update/${doctor.id}`)
     },
     [dispatch, navigate],
   )
 
   const handleDelete = useCallback(
-    async (patientId) => {
-      if (window.confirm("Are you sure you want to delete this patient?")) {
-        await dispatch(deletePatient(patientId))
+    async (doctorId) => {
+      if (window.confirm("Are you sure you want to delete this doctor?")) {
+        await dispatch(deleteDoctor(doctorId))
       }
     },
     [dispatch],
   )
 
   const handleExport = useCallback(() => {
-    listingHelper.exportToCSV(patients)
-  }, [patients])
+    listingHelper.exportToCSV(doctors)
+  }, [doctors])
 
   const handleAddNew = useCallback(() => {
-    navigate("/patients/create")
+    navigate("/doctors/create")
   }, [navigate])
 
   return {
-    patients,
+    doctors,
     filters,
     loading,
     pagination,

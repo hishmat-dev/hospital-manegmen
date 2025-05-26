@@ -1,16 +1,14 @@
+// src/modules/Doctor/pages/listing/listing.config.js
 export const listingConfig = {
-  bloodGroups: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
-  genderOptions: ["Male", "Female", "Other"],
-  statusOptions: ["Admitted", "Discharged"],
-  departments: ["Cardiology", "Neurology", "Pediatrics"], // Added
-  sortOptions: [
-    { value: "name", label: "Sort by Name" },
-    { value: "admissionDate", label: "Sort by Admission Date" }, // Aligned with FilterBar
-    { value: "age", label: "Sort by Age" },
-    { value: "status", label: "Sort by Status" },
+  departments: [
+    { value: "cardiology", label: "Cardiology" },
+    { value: "neurology", label: "Neurology" },
+    { value: "orthopedics", label: "Orthopedics" },
+    // Add other departments as needed
   ],
-  pagination: {
-    defaultLimit: 10,
-    limitOptions: [10, 25, 50, 100],
-  },
-};
+  statusOptions: [
+    { value: "Active", label: "Active" },
+    { value: "Inactive", label: "Inactive" },
+    // Add other statuses as needed
+  ],
+}
