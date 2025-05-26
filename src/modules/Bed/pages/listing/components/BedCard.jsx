@@ -51,7 +51,7 @@ export default function BedCard({
           <div className="flex space-x-2">
             <button
               onClick={() => onDischarge(bed.id)}
-              className="flex-1 bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 text-sm flex items-center justify-center space-x-1"
+              className="flex-1 bg-primary-color text-white px-3 py-2 rounded-lg  text-sm flex items-center justify-center space-x-1"
             >
               <User size={14} />
               <span>Discharge</span>
@@ -98,7 +98,7 @@ export default function BedCard({
             </button>
             <button
               onClick={() => onDelete(bed.id)}
-              className="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 text-sm"
+              className="bg-red-500 text-white px-3 py-2 rounded-lg hover:bg-red-700 text-sm"
             >
               <Trash2 size={14} />
             </button>
